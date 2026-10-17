@@ -9,6 +9,26 @@ let rulings = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null') || default
 let score = Number(localStorage.getItem(SCORE_KEY) || 42);
 let selectedCategory = { name: 'Funny', icon: '☻' };
 const $ = (id) => document.getElementById(id);
+const AUTH_KEY = 'point-taken-authenticated';
+
+function showApp() { $('login-screen').hidden = true; $('app-shell').hidden = false; }
+function showLogin() { $('login-screen').hidden = false; $('app-shell').hidden = true; }
+if (sessionStorage.getItem(AUTH_KEY) === 'true') showApp();
+else showLogin();
+
+$('login-form').addEventListener('submit', (event) => {
+  event.preventDefault();
+  const username = $('login-username').value.trim().toLowerCase();
+  const password = $('login-password').value;
+  if (username === 'asal' && password === 'asal123321') {
+    sessionStorage.setItem(AUTH_KEY, 'true');
+    $('login-error').textContent = '';
+    showApp();
+  } else {
+    $('login-error').textContent = 'That login does not match the scorecard.';
+  }
+});
+$('logout-button').addEventListener('click', () => { sessionStorage.removeItem(AUTH_KEY); showLogin(); $('login-password').value = ''; });
 
 function persist() { localStorage.setItem(STORAGE_KEY, JSON.stringify(rulings)); localStorage.setItem(SCORE_KEY, String(score)); }
 function renderScore() { $('score').textContent = score; $('meter-fill').style.width = `${Math.min(100, Math.max(5, score))}%`; $('score-note').textContent = score >= 80 ? 'Certified excellent company.' : score >= 50 ? 'A remarkably respectable human.' : score >= 0 ? 'Currently under friendly review.' : 'A little redemption arc never hurt.'; }

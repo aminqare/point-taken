@@ -11,10 +11,26 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="shell">
+    <section id="login-screen" class="login-screen">
+      <div class="login-card">
+        <div class="brand login-brand"><span class="brand-mark">✳</span> POINT TAKEN</div>
+        <p class="eyebrow">PRIVATE SCORECARD</p>
+        <h1>Welcome back,<br /><em>Asal.</em></h1>
+        <p class="login-copy">Sign in to make your rulings and keep the score moving.</p>
+        <form id="login-form" class="login-form">
+          <label>USERNAME<input id="login-username" autocomplete="username" required value="asal" /></label>
+          <label>PASSWORD<input id="login-password" type="password" autocomplete="current-password" required placeholder="Enter password" /></label>
+          <button class="login-button" type="submit">Enter the scorecard <span>↗</span></button>
+          <p id="login-error" class="login-error" role="alert"></p>
+        </form>
+        <p class="login-note">A little scorekeeping, just between us.</p>
+      </div>
+    </section>
+
+    <main id="app-shell" class="shell" hidden>
       <nav class="topbar">
         <div class="brand"><span class="brand-mark">✳</span> POINT TAKEN</div>
-        <div class="live-pill"><span></span> LOCAL MODE</div>
+        <div class="topbar-actions"><div class="live-pill"><span></span> PRIVATE MODE</div><button id="logout-button" class="logout-button" type="button">Log out</button></div>
       </nav>
 
       <section class="hero">
